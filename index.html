@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Pedido de Desculpas Interativo</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap');
+
+  body {
+    background-color: #1a1a1a;
+    color: #f0e6f6;
+    font-family: 'Indie Flower', cursive, monospace;
+    font-size: 22px;
+    padding: 30px;
+    overflow: hidden;
+    position: relative;
+    height: 100vh;
+    text-align: center;
+  }
+
+  #photo {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 20px;
+    border: 3px solid #f0e6f6;
+  }
+
+  #terminal {
+    white-space: pre-wrap;
+    max-width: 600px;
+    margin: 0 auto 20px auto;
+    line-height: 1.5;
+    z-index: 10;
+    position: relative;
+    min-height: 120px;
+  }
+
+  .cursor {
+    display: inline-block;
+    width: 10px;
+    background-color: #f0e6f6;
+    animation: blink 0.8s infinite;
+  }
+
+  @keyframes blink {
+    0%, 50% { opacity: 1; }
+    50%, 100% { opacity: 0; }
+  }
+
+  /* Corações flutuantes */
+  .heart {
+    position: fixed;
+    bottom: -50px;
+    width: 30px;
+    height: 30px;
+    background: url('data:image/svg+xml;utf8,<svg fill="pink" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41 0.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>') no-repeat center;
+    background-size: contain;
+    animation: floatUp linear forwards;
+    opacity: 0.8;
+    pointer-events: none;
+    z-index: 5;
+  }
+
+  @keyframes floatUp {
+    0% {
+      transform: translateY(0) scale(1);
+      opacity: 0.8;
+    }
+    100% {
+      transform: translateY(-120vh) scale(1.5);
+      opacity: 0;
+    }
+  }
+
+  /* Botões */
+  #buttons {
+    margin-top: 20px;
+  }
+  button {
+    background-color: #f0e6f6;
+    color: #1a1a1a;
+    border: none;
+    border-radius: 20px;
+    padding: 12px 30px;
+    font-size: 18px;
+    cursor: pointer;
+    margin: 0 15px;
+    transition: background-color 0.3s ease;
+  }
+  button:hover {
+    background-color: #d4cde6;
+  }
+
+  /* Mensagem triste */
+  #msgTriste {
+    margin-top: 30px;
+    font-size: 20px;
+    color: #ff6b6b;
+    font-style: italic;
+  }
+</style>
+</head>
+<body>
+
+<img id="photo" src="IMG_20250810_211950.jpg" alt="Foto de vocês">
+
+<div id="terminal"></div><span class="cursor"></span>
+
+<div id="buttons" style="display:none;">
+  <button id="simBtn">Sim</button>
+  <button id="naoBtn">Não</button>
+</div>
+
+<div id="msgTriste"></div>
+
+<audio id="musica" loop autoplay>
+  <source src="https://cdn.pixabay.com/download/audio/2022/02/10/audio_0d5c1a0b0d.mp3?filename=soft-piano-ambient-7437.mp3" type="audio/mpeg" />
+  Seu navegador não suporta áudio.
+</audio>
+
+<script>
+const mensagem = `Oi Mércia, aprendi a fazer um site só pra pedir desculpa pra vc e dizer que realmente te amo e não quero terminar, quero me casar com você e viver o resto da minha vida contigo, aceita voltar comigo?`;
+
+let i = 0;
+const terminal = document.getElementById("terminal");
+const buttons = document.getElementById("buttons");
+const msgTriste = document.getElementById("msgTriste");
+
+function digitar() {
+  if (i < mensagem.length) {
+    terminal.innerHTML += mensagem.charAt(i);
+    i++;
+    setTimeout(digitar, 60);
+  } else {
+    buttons.style.display = "block";
+  }
+}
+digitar();
+
+document.getElementById("simBtn").addEventListener("click", () => {
+  const numeroWhats = "5547996618669";
+  const texto = encodeURIComponent("Oi Mércia! Recebi seu pedido e claro que aceito voltar com você! ❤️");
+  window.open(`https://wa.me/${numeroWhats}?text=${texto}`, "_blank");
+});
+
+document.getElementById("naoBtn").addEventListener("click", () => {
+  msgTriste.textContent = "😢 Entendo... espero que um dia possamos ser amigos de novo.";
+  buttons.style.display = "none";
+});
+</script>
+
+</body>
+</html>
+te amo❤
+
+html
+
